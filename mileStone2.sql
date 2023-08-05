@@ -113,7 +113,8 @@ INSERT INTO Restaurant VALUES('Bobs Burgers', 50);
 
 CREATE TABLE Provides_AlcoholicDrink(RestaurantName char(50), DrinkName char(50), Price Integer, 
 PRIMARY KEY (RestaurantName, DrinkName),
-FOREIGN KEY (RestaurantName) REFERENCES Restaurant);
+FOREIGN KEY (RestaurantName) REFERENCES Restaurant
+ON DELETE CASCADE);
 INSERT INTO Provides_AlcoholicDrink VALUES('Death Eater Bar', 'Avada Kevodka', 6.99);
 INSERT INTO Provides_AlcoholicDrink VALUES('Death Eater Bar', 'Thunder Beer', 10.99);
 INSERT INTO Provides_AlcoholicDrink VALUES('Asgardian Feast', 'Thunder Beer', 5.99);
