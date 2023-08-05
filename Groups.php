@@ -15,6 +15,12 @@
             <input type="hidden" id="showGroupsRequest" name="showGroupsRequest">
             <input type="submit" name="showGroups"></p>
         </form>
+
+        <h2>Show all the cheapest drink in each restaurant from the Provides_AlcoholicDrink table</h2>
+        <form method="GET" action="Groups.php"> <!--refresh page when submitted-->
+            <input type="hidden" id="getCheapestDrinksRequest" name="getCheapestDrinksRequest">
+            <input type="submit" name="getCheapestDrinks"></p>
+        </form>
         
 
         <?php
@@ -154,11 +160,27 @@
             echo "<tr><th>Group name</th></tr>";
 
             while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
-                echo "<tr><td>" . $row["GROUPNAME"] . "</td><td>";
+                echo "<tr><td>" . $row["GROUPNAME"] . "</td></tr>";
             }
 
             echo "</table>";
 
+        }
+
+        function handleGetCheapestDrinksResquest() {
+            global $db_conn;
+
+            $result = executePlainSQL("SELECT RestaurantName, MIN(Price) FROM Provides_AlcoholicDrink GROUP BY RestaurantName");
+
+            echo "<br>Retrieved data from Provides_AlcoholicDrink Table:<br>";
+            echo "<table>";
+            echo "<tr><th>Restaurant Name</th><th>Cheapest Drink</th></tr>";
+
+            while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
+                echo "<tr><td>" . $row["RESTAURANTNAME"] . "</td><td>" . $row["MIN(PRICE)"] . "</td></tr>";
+            }
+
+            echo "</table>";
         }
 
         // HANDLE ALL POST ROUTES
@@ -185,6 +207,8 @@
                     handleCountRequest();
                 } else if (array_key_exists('showGroups', $_GET)){
                     handleShowGroupsRequest();
+                } else if (array_key_exists('getCheapestDrinks', $_GET)){
+                    handleGetCheapestDrinksResquest();
                 }
 
                 disconnectFromDB();
@@ -193,7 +217,7 @@
 
 		if (isset($_POST['reset']) || isset($_POST['updateSubmit']) || isset($_POST['insertSubmit'])) {
             handlePOSTRequest();
-        } else if (isset($_GET['countTupleRequest']) || isset($_GET['showGroupsRequest'])) {
+        } else if (isset($_GET['countTupleRequest']) || isset($_GET['showGroupsRequest']) || isset($_GET['getCheapestDrinksRequest'])) {
             handleGETRequest();
         }
 		?>

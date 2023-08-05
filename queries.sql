@@ -23,6 +23,12 @@ SELECT StaffName
 FROM Staff
 WHERE StaffID = ID
 
+-- Aggregation with group by
+-- !!!!!! change the type of price from integer to char
+SELECT RestaurantName, MIN(Price)
+FROM Provides_AlcoholicDrink
+GROUP BY RestaurantName
+
 -- Insert
 -- arg(rname, capacity)
 INSERT INTO RESTAURANT
