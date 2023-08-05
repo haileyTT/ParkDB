@@ -2,6 +2,9 @@
 SELECT * 
 FROM Groups
 
+SELECT COUNT(*)
+FROM Groups
+
 -- PartOfActor
 -- arg (groupNm)
 SELECT StageName

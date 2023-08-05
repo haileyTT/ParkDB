@@ -5,13 +5,13 @@
 
     <body>
         <h2>Count the number of tuples in Groups table</h2>
-        <form method="GET" action="Groups1.php"> <!--refresh page when submitted-->
+        <form method="GET" action="Groups.php"> <!--refresh page when submitted-->
             <input type="hidden" id="countTupleRequest" name="countTupleRequest">
             <input type="submit" name="countTuples"></p>
         </form>
 
         <h2>Show all the group names in the Groups table</h2>
-        <form method="GET" action="Groups1.php"> <!--refresh page when submitted-->
+        <form method="GET" action="Groups.php"> <!--refresh page when submitted-->
             <input type="hidden" id="showGroupsRequest" name="showGroupsRequest">
             <input type="submit" name="showGroups"></p>
         </form>
