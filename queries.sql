@@ -41,17 +41,17 @@ SELECT *
 FROM PROVIDES_ALCOHOLICDRINK
 
 -- Projection
--- arg(arg1, arg2, …)
-SELECT arg1, arg2, …
+-- arg(column1, column2, …)
+SELECT column1, column2, …
 FROM PERFORMS_SHOW_R2
 
 -- Having
--- arg(number)
+-- arg(minShows)
 SELECT GENRE, COUNT(*)
 FROM PERFORMS_SHOW_R1 r1, PERFORMS_SHOW_R2 r2
 WHERE r1.TITLE = r2.TITLE
 GROUP BY GENRE
-HAVING COUNT(*) >=  number 
+HAVING COUNT(*) >= minShows 
 
 -- Display the Show Schedule
 SELECT STARTTIME, r1.TITLE, GENRE, SEATS, GROUPNAME
