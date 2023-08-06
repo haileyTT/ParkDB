@@ -147,10 +147,10 @@
 
             $result = executePlainSQL("SELECT Count(*) FROM Groups");
 
+            echo "<tr>Retrieved data from table:</tr>";
             if (($row = oci_fetch_row($result)) != false) {
-                echo "<br> The number of tuples in Groups: " . $row[0] . "<br>";
+                echo "<br> The number of tuples in Groups: " . $row[0] . "</br>";
             }
-
         }
 
         function handleShowGroupsRequest() {
@@ -158,7 +158,7 @@
 
             $result = executePlainSQL("SELECT * FROM Groups");
 
-            echo "<br>Retrieved data from Groups Table:<br>";
+            echo "<tr>Retrieved data from table:</tr>";
             echo "<table>";
             echo "<tr><th>Group name</th></tr>";
 
@@ -167,7 +167,6 @@
             }
 
             echo "</table>";
-
         }
 
         function handleGetCheapestDrinksResquest() {
@@ -175,7 +174,7 @@
 
             $result = executePlainSQL("SELECT RestaurantName, MIN(Price) FROM Provides_AlcoholicDrink GROUP BY RestaurantName");
 
-            echo "<br>Retrieved data from Provides_AlcoholicDrink Table:<br>";
+            echo "<br>Retrieved data from table:<br>";
             echo "<table>";
             echo "<tr><th>Restaurant Name</th><th>Cheapest Drink</th></tr>";
 
@@ -197,7 +196,7 @@
                                     FROM GoesOn S            
                                     WHERE S.TicketNumber = V.TicketNumber))");
 
-            echo "<br>Retrieved data from tables:<br>";
+            echo "<br>Retrieved data from table:<br>";
             echo "<table>";
             echo "<tr><th>Visitors who have gone to all rides</th></tr>";
 
