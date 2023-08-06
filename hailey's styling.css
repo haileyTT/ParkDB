@@ -1,17 +1,15 @@
 body {
   background-color: F6EFEE;
-  margin: 45px;
+  margin: 35px;
 }
 
 h3 {
   color: E365C1;
-  margin-left: 20px;
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 #submit-button {
   color: E365C1;
-  margin-left: 20px;
   background-color: CCE8CC;
   cursor: pointer;
   border: none;
@@ -22,8 +20,12 @@ h3 {
 }
 
 table {
-  margin-left: 20px;
   color: E365C1;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
+}
+
+p {
+  color: E365C1;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }

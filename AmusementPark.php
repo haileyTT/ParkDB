@@ -5,6 +5,7 @@
     </head>
 
     <body>
+        <div>
         <h3>Count the number of performance groups in the park</h3>
         <form method="GET" action="AmusementPark.php"> <!--refresh page when submitted-->
             <input type="hidden" id="countTupleRequest" name="countTupleRequest">
@@ -28,6 +29,15 @@
             <input type="hidden" id="getVisitorsOnAllRidesRequest" name="getVisitorsOnAllRidesRequest">
             <input id="submit-button" type="submit" name="getVisitorsOnAllRides" value="Search"></p>
         </form>
+
+        <h3>Insert Values into DemoTable</h3>
+        <form method="POST" action="AmusementPark.php"> <!--refresh page when submitted-->
+            <input type="hidden" id="insertVisitorQueryRequest" name="insertVisitorQueryRequest">
+            <p>Ticket number: <input type="text" name="vTicketNm"></p> 
+            <p>Visitor name: <input type="text" name="visitorName"></p>
+            <input id="submit-button" type="submit" value="Insert visitor" name="insertVisitorSubmit"></p>
+        </form>
+        </div>
         
 
         <?php
@@ -207,21 +217,38 @@
             echo "</table>";
         }
 
+        function handleInsertVisitorRequest() {
+            global $db_conn;
+
+            $tuple = array (
+                ":bind1" => $_POST['vTicketNm'],
+                ":bind2" => $_POST['visitorName']
+            );
+
+            $alltuples = array (
+                $tuple
+            );
+
+            executeBoundSQL("insert into Visitor values (:bind1, :bind2)", $alltuples);
+            OCICommit($db_conn);
+        }
+    
+
         // HANDLE ALL POST ROUTES
 	// A better coding practice is to have one method that reroutes your requests accordingly. It will make it easier to add/remove functionality.
-        // function handlePOSTRequest() {
-        //     if (connectToDB()) {
-        //         if (array_key_exists('resetTablesRequest', $_POST)) {
-        //             handleResetRequest();
-        //         } else if (array_key_exists('updateQueryRequest', $_POST)) {
-        //             handleUpdateRequest();
-        //         } else if (array_key_exists('insertQueryRequest', $_POST)) {
-        //             handleInsertRequest();
-        //         }
+        function handlePOSTRequest() {
+            if (connectToDB()) {
+                if (array_key_exists('resetTablesRequest', $_POST)) {
+                    handleResetRequest();
+                } else if (array_key_exists('updateQueryRequest', $_POST)) {
+                    handleUpdateRequest();
+                } else if (array_key_exists('insertVisitorQueryRequest', $_POST)) {
+                    handleInsertVisitorRequest();
+                }
 
-        //         disconnectFromDB();
-        //     }
-        // }
+                disconnectFromDB();
+            }
+        }
 
         // HANDLE ALL GET ROUTES
 	// A better coding practice is to have one method that reroutes your requests accordingly. It will make it easier to add/remove functionality.
@@ -241,7 +268,7 @@
             }
         }
 
-		if (isset($_POST['reset']) || isset($_POST['updateSubmit']) || isset($_POST['insertSubmit'])) {
+		if (isset($_POST['reset']) || isset($_POST['updateSubmit']) || isset($_POST['insertVisitorSubmit'])) {
             handlePOSTRequest();
         } else if (isset($_GET['countTupleRequest']) || isset($_GET['showGroupsRequest']) || isset($_GET['getCheapestDrinksRequest']) || isset($_GET['getVisitorsOnAllRidesRequest'])) {
             handleGETRequest(); 
