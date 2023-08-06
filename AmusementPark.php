@@ -4,6 +4,11 @@
         <link rel="stylesheet" href="hailey's styling.css">
     </head>
 
+    <div class="topnav">
+        <a href="AmusementPark.php">Amusement Park</a>
+        <a href="insert_delete.php">insert_delete</a>
+    </div>
+
     <body>
         <div>
         <h3>Count the number of performance groups in the park</h3>
@@ -12,11 +17,15 @@
             <input id="submit-button" type="submit" name="countTuples" value="Count"></p>
         </form>
 
+        <hr />
+
         <h3>Show all names of performance groups</h3>
         <form method="GET" action="AmusementPark.php"> <!--refresh page when submitted-->
             <input type="hidden" id="showGroupsRequest" name="showGroupsRequest">
             <input id="submit-button" type="submit" name="showGroups" value="Display"></p>
         </form>
+
+        <hr />
 
         <h3>Show all the cheapest drinks in each restaurant in the park</h3>
         <form method="GET" action="AmusementPark.php"> <!--refresh page when submitted-->
@@ -24,13 +33,17 @@
             <input id="submit-button" type="submit" name="getCheapestDrinks" value="Display"></p>
         </form>
 
+        <hr />
+
         <h3>Find the visitors who went to all rides</h3>
         <form method="GET" action="AmusementPark.php"> <!--refresh page when submitted-->
             <input type="hidden" id="getVisitorsOnAllRidesRequest" name="getVisitorsOnAllRidesRequest">
             <input id="submit-button" type="submit" name="getVisitorsOnAllRides" value="Search"></p>
         </form>
 
-        <h3>Insert Values into DemoTable</h3>
+        <hr />
+
+        <h3>Insert Values into Visitor table</h3>
         <form method="POST" action="AmusementPark.php"> <!--refresh page when submitted-->
             <input type="hidden" id="insertVisitorQueryRequest" name="insertVisitorQueryRequest">
             <p>Ticket number: <input type="text" name="vTicketNm"></p> 

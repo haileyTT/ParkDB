@@ -22,6 +22,11 @@
         <link rel="stylesheet" href="hailey's styling.css">
     </head>
 
+    <div class="topnav">
+        <a href="AmusementPark.php">Amusement Park</a>
+        <a href="insert_delete.php">insert_delete</a>
+    </div>
+
     <body>
 
         <h3>Insert Values into the RESTAURANT Table</h3>
