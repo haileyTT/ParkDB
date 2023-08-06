@@ -1,31 +1,32 @@
-  <html>
+<html>
     <head>
-        <title>CPSC 304 PHP/Oracle Demonstration</title>
+        <title>Amusement Park Planning</title>
+        <link rel="stylesheet" href="hailey's styling.css">
     </head>
 
     <body>
-        <h2>Count the number of tuples in Groups table</h2>
-        <form method="GET" action="Groups.php"> <!--refresh page when submitted-->
+        <h3>Count the number of performance groups in the park</h3>
+        <form method="GET" action="AmusementPark.php"> <!--refresh page when submitted-->
             <input type="hidden" id="countTupleRequest" name="countTupleRequest">
-            <input type="submit" name="countTuples"></p>
+            <input id="submit-button" type="submit" name="countTuples" value="Count"></p>
         </form>
 
-        <h2>Show all the group names in the Groups table</h2>
-        <form method="GET" action="Groups.php"> <!--refresh page when submitted-->
+        <h3>Show all names of performance groups</h3>
+        <form method="GET" action="AmusementPark.php"> <!--refresh page when submitted-->
             <input type="hidden" id="showGroupsRequest" name="showGroupsRequest">
-            <input type="submit" name="showGroups"></p>
+            <input id="submit-button" type="submit" name="showGroups" value="Display"></p>
         </form>
 
-        <h2>Show all the cheapest drink in each restaurant from the Provides_AlcoholicDrink table</h2>
-        <form method="GET" action="Groups.php"> <!--refresh page when submitted-->
+        <h3>Show all the cheapest drinks in each restaurant in the park</h3>
+        <form method="GET" action="AmusementPark.php"> <!--refresh page when submitted-->
             <input type="hidden" id="getCheapestDrinksRequest" name="getCheapestDrinksRequest">
-            <input type="submit" name="getCheapestDrinks"></p>
+            <input id="submit-button" type="submit" name="getCheapestDrinks" value="Display"></p>
         </form>
 
-        <h2>Find the visitors who went to all rides</h2>
-        <form method="GET" action="Groups.php"> <!--refresh page when submitted-->
+        <h3>Find the visitors who went to all rides</h3>
+        <form method="GET" action="AmusementPark.php"> <!--refresh page when submitted-->
             <input type="hidden" id="getVisitorsOnAllRidesRequest" name="getVisitorsOnAllRidesRequest">
-            <input type="submit" name="getVisitorsOnAllRides"></p>
+            <input id="submit-button" type="submit" name="getVisitorsOnAllRides" value="Search"></p>
         </form>
         
 

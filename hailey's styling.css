@@ -1,0 +1,22 @@
+body {
+  background-color: F6EFEE;
+  margin: 45px;
+}
+
+h3 {
+  color: E365C1;
+  margin-left: 20px;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#submit-button {
+  color: E365C1;
+  margin-left: 20px;
+  background-color: CCE8CC;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  font-size: 15px;
+  padding: 5px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
