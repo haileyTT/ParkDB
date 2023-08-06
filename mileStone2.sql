@@ -103,6 +103,10 @@ INSERT INTO GoesOn VALUES ('Splash Mountain', 10002);
 INSERT INTO GoesOn VALUES ('Tower of Terror', 10001);
 INSERT INTO GoesOn VALUES ('Happy Carousel', 10006);
 INSERT INTO GoesOn VALUES ('Bumper Cars', 10005);
+INSERT INTO GoesOn VALUES ('Ferris Wheel', 10001);
+INSERT INTO GoesOn VALUES ('Happy Carousel', 10001);
+INSERT INTO GoesOn VALUES ('Bumper Cars', 10001);
+
 
 CREATE TABLE Restaurant(RestaurantName char(50) PRIMARY KEY, Capacity Integer);
 INSERT INTO Restaurant VALUES('Princess Tea Party', 50);

@@ -24,10 +24,21 @@ FROM Staff
 WHERE StaffID = ID
 
 -- Aggregation with group by
--- !!!!!! change the type of price from integer to char
+-- TODO: change the type of price from integer to char
 SELECT RestaurantName, MIN(Price)
 FROM Provides_AlcoholicDrink
 GROUP BY RestaurantName
+
+-- Find visitors who have gone to all rides
+SELECT VisitorName
+FROM Visitor V
+WHERE NOT EXISTS ((SELECT R.RideName
+                FROM Operates_Ride_R2 R) 
+                MINUS
+                (SELECT S.RideName
+                FROM GoesOn S            
+                WHERE S.TicketNumber = V.TicketNumber))
+
 
 -- Insert
 -- arg(rname, capacity)

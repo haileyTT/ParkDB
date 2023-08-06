@@ -21,6 +21,12 @@
             <input type="hidden" id="getCheapestDrinksRequest" name="getCheapestDrinksRequest">
             <input type="submit" name="getCheapestDrinks"></p>
         </form>
+
+        <h2>Find the visitors who went to all rides</h2>
+        <form method="GET" action="Groups.php"> <!--refresh page when submitted-->
+            <input type="hidden" id="getVisitorsOnAllRidesRequest" name="getVisitorsOnAllRidesRequest">
+            <input type="submit" name="getVisitorsOnAllRides"></p>
+        </form>
         
 
         <?php
@@ -151,10 +157,6 @@
 
             $result = executePlainSQL("SELECT * FROM Groups");
 
-            // if (($row = oci_fetch_row($result)) != false) {
-            //     echo "<br> The number of tuples in Groups: " . $row[0] . "<br>";
-            // }
-
             echo "<br>Retrieved data from Groups Table:<br>";
             echo "<table>";
             echo "<tr><th>Group name</th></tr>";
@@ -178,6 +180,28 @@
 
             while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
                 echo "<tr><td>" . $row["RESTAURANTNAME"] . "</td><td>" . $row["MIN(PRICE)"] . "</td></tr>";
+            }
+
+            echo "</table>";
+        }
+
+        function handleGetVisitorsOnAllRides() {
+            global $db_conn;
+
+            $result = executePlainSQL("SELECT VisitorName FROM Visitor V
+                                    WHERE NOT EXISTS ((SELECT R.RideName
+                                    FROM Operates_Ride_R2 R) 
+                                    MINUS
+                                    (SELECT S.RideName
+                                    FROM GoesOn S            
+                                    WHERE S.TicketNumber = V.TicketNumber))");
+
+            echo "<br>Retrieved data from tables:<br>";
+            echo "<table>";
+            echo "<tr><th>Visitors who have gone to all rides</th></tr>";
+
+            while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
+                echo "<tr><td>" . $row["VISITORNAME"] . "</td></tr>";
             }
 
             echo "</table>";
@@ -209,6 +233,8 @@
                     handleShowGroupsRequest();
                 } else if (array_key_exists('getCheapestDrinks', $_GET)){
                     handleGetCheapestDrinksResquest();
+                } else if (array_key_exists('getVisitorsOnAllRides', $_GET)){
+                    handleGetVisitorsOnAllRides();
                 }
 
                 disconnectFromDB();
@@ -217,8 +243,8 @@
 
 		if (isset($_POST['reset']) || isset($_POST['updateSubmit']) || isset($_POST['insertSubmit'])) {
             handlePOSTRequest();
-        } else if (isset($_GET['countTupleRequest']) || isset($_GET['showGroupsRequest']) || isset($_GET['getCheapestDrinksRequest'])) {
-            handleGETRequest();
+        } else if (isset($_GET['countTupleRequest']) || isset($_GET['showGroupsRequest']) || isset($_GET['getCheapestDrinksRequest']) || isset($_GET['getVisitorsOnAllRidesRequest'])) {
+            handleGETRequest(); 
         }
 		?>
 	</body>
