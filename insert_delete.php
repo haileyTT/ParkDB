@@ -16,40 +16,41 @@
   extension.  You must also change the username and password on the
   OCILogon below to be your ORACLE username and password -->
 
-<html>
+  <html>
     <head>
         <title>CPSC 304 PHP/Oracle Demonstration</title>
+        <link rel="stylesheet" href="hailey's styling.css">
     </head>
 
     <body>
 
-        <h2>Insert Values into the RESTAURANT Table</h2>
+        <h3>Insert Values into the RESTAURANT Table</h3>
         <form method="POST" action="insert_delete.php"> <!--refresh page when submitted-->
             <input type="hidden" id="insertQueryRequest" name="insertQueryRequest">
-			Restaurant Name: <input type="text" name="insName"> <br /><br />
-            Capacity: <input type="text" name="insNo"> <br /><br />
+			<p> Restaurant Name: <input type="text" name="insName"> </p>
+            <p> Capacity: <input type="text" name="insNo"> </p>
             
-            <input type="submit" value="Insert" name="insertSubmit"></p>
+            <input id="submit-button" type="submit" value="Insert" name="insertSubmit"></p>
         </form>
 
         <hr />
 
-        <h2>Delete a RESTAURANT by name</h2>
+        <h3>Delete a RESTAURANT by name</h3>
         <p>The values are case sensitive and if you enter in the wrong case, the delete statement will not do anything.</p>
 
         <form method="POST" action="insert_delete.php"> <!--refresh page when submitted-->
             <input type="hidden" id="deleteQueryRequest" name="deleteQueryRequest">
-            Restaurant Name: <input type="text" name="restaurantname"> <br /><br />
+            <p> Restaurant Name: <input type="text" name="restaurantname"> </p>
 
-            <input type="submit" value="Delete" name="deleteSubmit"></p>
+            <input id="submit-button" type="submit" value="Delete" name="deleteSubmit"></p>
         </form>
 
         <hr />
 
-        <h2>RESTAURANT and PROVIDES_ALCOHOLICDRINK</h2>
+        <h3>RESTAURANT and PROVIDES_ALCOHOLICDRINK</h3>
         <form method="GET" action="insert_delete.php"> <!--refresh page when submitted-->
             <input type="hidden" id="displayTupleRequest" name="displayTupleRequest">
-            <input type="submit" value="Display" name="displayTuples"></p>
+            <input id="submit-button" type="submit" value="Display" name="displayTuples"></p>
         </form>
 
         <?php
