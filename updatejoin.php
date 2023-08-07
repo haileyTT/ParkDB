@@ -15,20 +15,20 @@
         <input type="submit" value="Update" name="updateSubmit"></p>
 </form>
 
-        <h3>Show all names of Staff</h3>
+        <h3>Show Performs Staff Table</h3>
         <form method="GET" action="updatejoin.php"> <!--refresh page when submitted-->
             <input type="hidden" id="showGroupsRequest" name="showGroupsRequest">
             <input id="submit-button" type="submit" name="showGroups" value="Display"></p>
         </form>
 
-        <h3>Average capacity of rides of the same ride type with lowest height restriction</h3>
+        <h3>Find min seats of each group for which the average seats of the shows are higher than the average seats of all rides across all groups:  </h3>
         <form method="POST" action="updatejoin.php"> <!--refresh page when submitted-->
-            <input type="hidden" id="avgCapacityRequest" name="avgCapacityRequest">
-            <input id="submit-button" type="submit" name="avgCapacity" value="Display"></p>
+            <input type="hidden" id="minSeatsRequest" name="minSeatsRequest">
+            <input id="submit-button" type="submit" name="minSeats" value="Display"></p>
         </form>
 
     
-        <h3>Find the names of visitors that have been on rides with Ride Name: </h3>
+        <h3>Find the visitors who have been on the inputted ride</h3>
         <form method="POST" action="updatejoin.php"> <!--refresh page when submitted-->
             <input type="hidden" id="getVisitorsOnAllRidesRequest" name="getVisitorsOnAllRidesRequest">
              RideName: <input type="text" name="rideName"> <br /><br />
@@ -111,17 +111,33 @@
             }
         }
 
-        function printResult($result) { //prints results from a select statement
-            echo "<br>Retrieved data from table demoTable:<br>";
-            echo "<table>";
-            echo "<tr><th>ID</th><th>Name</th></tr>";
+        function printResult($result) { //prints results from a select statement. Referred to oracle-test.php and user ihciem on GitHub's code printResult.php
+			$header = false;
 
-            while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
-                echo "<tr><td>" . $row["ID"] . "</td><td>" . $row["NAME"] . "</td></tr>"; //or just use "echo $row[0]"
-            }
+			echo "<table>";
+			while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
+				$numKeys = array_filter(array_keys($row), function($numKey) {return is_int($numKey);});
+				$assocKeys = array_filter(array_keys($row), function($assocKey) {return is_string($assocKey);});
 
-            echo "</table>";
-        }
+				// output header/column/attribute names
+				if (!$header) {
+					echo "<thead><tr>";
+					foreach ($assocKeys as $key) {
+						echo '<th>' . ($key !== null ? htmlentities($key, ENT_QUOTES) : '') . str_repeat("&nbsp;", 5) . '</th>';
+					}
+					echo "</tr></thead>";
+					$header = true;
+				}
+
+				// output all the data rows.
+				echo '<tr>';
+				foreach ($numKeys as $index) {
+					echo "<td>" . $row[$index] . str_repeat("&nbsp;", 5) . "</td>";
+				}
+				echo '</tr>';
+			}
+			echo "</table>";
+		}
 
         function connectToDB() {
             global $db_conn;
@@ -179,13 +195,9 @@
                 FROM Visitor v, GoesOn g
                 WHERE RideName = '" . $rn . "' AND v.TicketNumber = g.TicketNumber");
 
-            echo "<tr><th>Visitors who have gone on a ride with entered Ride Name:</th></tr>";
+            echo "<h2>Visitors who have gone on a ride with entered Ride Name:</h2>";
 
-            while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
-                echo "<tr><td>" . $row["VISITORNAME"] . "</td></tr>";
-            }
-
-            echo "</table>";
+          printResult($result);
              
                 }
             
@@ -205,31 +217,24 @@
 
             $result = executePlainSQL("SELECT * FROM Performs_Show_R2");
 
-            echo "<tr>Retrieved data from table:</tr>";
-            echo "<table>";
-            echo "<tr><th>Visitor name</th></tr>";
-
-            while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
-                echo "<tr><td>" . $row["SEATS"] . "</td></tr>";
-            }
-
-            echo "</table>";
+           printResult($result);
         }
-        function handleShowAvg() {
+        function minSeats() {
             global $db_conn;
 
-                
-                $result = executePlainSQL("SELECT Avg(Capacity), RideName
-                FROM Operates_Ride_R1, Operates_Ride_R2
-                WHERE HeightRestriction < ALL (SELECT HeightRestriction
-                                                 FROM Operates_Ride_R1, Operates_Ride_R2
-                                                 GROUP BY RideType)
-                GROUP BY RideType");
+                $result = executePlainSQL("SELECT MIN(Seats)
+                FROM Performs_Show_R2 
+                GROUP BY GroupName
+                HAVING avg(Seats) > (SELECT avg(Seats)
+                                    FROM Performs_Show_R2)
+                ");
+                printResult($result);
+}
 
-            echo $result;
+       
 
             
-        }
+        
      
 
         // HANDLE ALL POST ROUTES
@@ -243,8 +248,8 @@
                 } else if (array_key_exists('getVisitorsOnAllRides', $_POST)) {
                     handleGetVisitorsOnAllRides();
                 }
-                else if (array_key_exists('avgCapacity', $_POST)) {
-                    handleShowAvg();
+                else if (array_key_exists('minSeats', $_POST)) {
+                    minSeats();
                 }
 
                 disconnectFromDB();
@@ -264,7 +269,7 @@
             }
         }
 
-		if (isset($_POST['reset']) || isset($_POST['updateSubmit']) || isset($_POST['insertSubmit']) || isset($_POST['getVisitorsOnAllRidesRequest']) ||  isset($_POST['avgCapacityRequest'])) {
+		if (isset($_POST['reset']) || isset($_POST['updateSubmit']) || isset($_POST['insertSubmit']) || isset($_POST['getVisitorsOnAllRidesRequest']) ||  isset($_POST['minSeatsRequest'])) {
             handlePOSTRequest();
         } else if (isset($_GET['countTupleRequest']) || isset($_GET['showGroupsRequest'])) {
             handleGETRequest(); 
