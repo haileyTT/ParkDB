@@ -81,10 +81,10 @@ ORDER BY STARTTIME;
 
 
 
---Find the seats of shows with the minimum number of seats for each genre for which the average seats of the shows are higher than the average seats of all rides across all genres
+--Find the Title of Shows for each genre for which the average seats of the shows are higher than the average seats of all rides across all genres
 
 
-SELECT Genre, MIN(Seats)
+SELECT p1.Title, MIN(Seats)
 FROM Performs_Show_R1 p1, Performs_Show_R2 p2
 WHERE p1.Title = p2.Title 
 GROUP BY Genre
