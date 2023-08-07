@@ -25,6 +25,7 @@
     <div class="topnav">
         <a href="AmusementPark.php">Amusement Park</a>
         <a href="insert_delete.php">insert_delete</a>
+	<a href="project_having.php">Projection&HavingShows</a>
     </div>
 
     <body>
