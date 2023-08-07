@@ -81,18 +81,17 @@ ORDER BY STARTTIME;
 
 
 
---avg capacity of rides of the same ride type with lowest height restriction
+--Find the seats of shows with the minimum number of seats for each genre for which the average seats of the shows are higher than the average seats of all rides across all genres
 
 
-SELECT Avg(Capacity), RideName
-FROM Ride r1
-WHERE r1.HeightRestriction < ALL (SELECT r2.HeightRestriction
-FROM Ride r2
-GROUP BY Type)
-GROUP BY Type;
+SELECT Genre, MIN(Seats)
+FROM Performs_Show_R1 p1, Performs_Show_R2 p2
+WHERE p1.Title = p2.Title 
+GROUP BY Genre
+HAVING avg(Seats) > (SELECT avg(Seats)
+                    FROM Performs_Show_R2);
 
-
--- Find the name of all visitors who have been on a ride
+-- Find the name of all visitors who have been on a ride (Join)
 SELECT VisitorName
 FROM Visitor v, GoesOn g
 WHERE v.TicketNumber = g.TicketNumber;
