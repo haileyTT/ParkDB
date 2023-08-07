@@ -37,7 +37,7 @@
                        <input type="radio" name="starttime" value="NO"> No<br><br/>
 			Title: <input type="radio" checked="checked" name="title" value="YES" required> Yes
                        <input type="radio" name="title" value="NO" > No<br><br/>
-            Seat: <input type="radio" checked="checked" name="seats" value="YES" required> Yes
+            Seats: <input type="radio" checked="checked" name="seats" value="YES" required> Yes
                        <input type="radio" name="seats" value="NO"> No<br><br/>
 			Groupname: <input type="radio" checked="checked" name="groupname" value="YES" required> Yes
                        <input type="radio" name="groupname" value="NO"> No<br><br/>					   
