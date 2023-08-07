@@ -126,7 +126,7 @@ INSERT INTO Provides_AlcoholicDrink VALUES('Marios Buffet', 'Super Margarita', 1
 INSERT INTO Provides_AlcoholicDrink VALUES('Death Eater Bar', 'Winegardian Leviosa', 6.99);
 
 CREATE TABLE DinesAt (TicketNumber INTEGER, RestaurantName char(50), PRIMARY KEY (TicketNumber, RestaurantName),
-FOREIGN KEY (TicketNumber) REFERENCES Visitor, FOREIGN KEY (RestaurantName) REFERENCES Restaurant);
+FOREIGN KEY (TicketNumber) REFERENCES Visitor, FOREIGN KEY (RestaurantName) REFERENCES Restaurant ON DELETE CASCADE);
 INSERT INTO DinesAt VALUES (10001, 'Princess Tea Party');
 INSERT INTO DinesAt VALUES (10001, 'Death Eater Bar');
 INSERT INTO DinesAt VALUES (10002, 'Death Eater Bar');
@@ -138,7 +138,7 @@ CREATE TABLE Purchases (TicketNumber Integer,
                         DrinkName char(50), 
                         PRIMARY KEY (TicketNumber, RestaurantName, DrinkName), 
                         FOREIGN KEY (TicketNumber) REFERENCES Adult, 
-                        FOREIGN KEY (RestaurantName, DrinkName) REFERENCES Provides_AlcoholicDrink);
+                        FOREIGN KEY (RestaurantName, DrinkName) REFERENCES Provides_AlcoholicDrink ON DELETE CASCADE);
 INSERT INTO Purchases VALUES(10001, 'Death Eater Bar', 'Thunder Beer');
 INSERT INTO Purchases VALUES(10004, 'Asgardian Feast', 'Thunder Beer');
 INSERT INTO Purchases VALUES(10004, 'Death Eater Bar', 'Thunder Beer');
