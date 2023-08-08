@@ -8,6 +8,7 @@
     <a href="AmusementPark.php">Amusement Park</a>
     <a href="insert_delete.php">Insert&DeleteRestaurants</a>
     <a href="project_having.php">Projection&HavingShows</a>
+    <a href="updatejoin.php">Update&Join</a>
     </div>
 
     <body>
