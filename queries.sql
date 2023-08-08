@@ -81,15 +81,14 @@ ORDER BY STARTTIME;
 
 
 
---Find the Title of Shows for each genre for which the average seats of the shows are higher than the average seats of all rides across all genres
+--Find the types of rides with capacity thats greater than the average capacity of all the ride types 
 
 
-SELECT p1.Title, MIN(Seats)
-FROM Performs_Show_R1 p1, Performs_Show_R2 p2
-WHERE p1.Title = p2.Title 
-GROUP BY Genre
-HAVING avg(Seats) > (SELECT avg(Seats)
-                    FROM Performs_Show_R2);
+SELECT RideType
+FROM Operates_Ride_R2 r2
+GROUP BY RideType
+HAVING avg(Capacity) > (SELECT avg(Capacity)
+                        FROM Operates_Ride_R2);
 
 -- Find the name of all visitors who have been on a ride (Join)
 SELECT VisitorName
