@@ -26,7 +26,7 @@
             <input id="submit-button" type="submit" name="showGroups" value="Display"></p>
         </form>
 
-        <h3>Find min seats of each group for which the average seats of the shows are higher than the average seats of all rides across all groups:  </h3>
+        <h3>Find the types of rides with capacity thats greater than the average capacity of all the ride types </h3>
         <form method="POST" action="updatejoin.php"> <!--refresh page when submitted-->
             <input type="hidden" id="minSeatsRequest" name="minSeatsRequest">
             <input id="submit-button" type="submit" name="minSeats" value="Display"></p>
@@ -227,11 +227,11 @@
         function minSeats() {
             global $db_conn;
 
-                $result = executePlainSQL("SELECT MIN(Seats)
-                FROM Performs_Show_R2 
-                GROUP BY GroupName
-                HAVING avg(Seats) > (SELECT avg(Seats)
-                                    FROM Performs_Show_R2)
+                $result = executePlainSQL("SELECT RideType
+                FROM Operates_Ride_R2 r2
+                GROUP BY RideType
+                HAVING avg(Capacity) > (SELECT avg(Capacity)
+                                         FROM Operates_Ride_R2)
                 ");
                 printResult($result);
 }
