@@ -20,10 +20,16 @@
         <input type="submit" value="Update" name="updateSubmit"></p>
 </form>
 
-        <h3>Show Performs Staff Show</h3>
+        <h3>Show Performs_Show_R1 Table</h3>
         <form method="GET" action="updatejoin.php"> <!--refresh page when submitted-->
             <input type="hidden" id="showGroupsRequest" name="showGroupsRequest">
             <input id="submit-button" type="submit" name="showGroups" value="Display"></p>
+        </form>
+
+        <h3>Show Performs_Show_R2 Table</h3>
+        <form method="GET" action="updatejoin.php"> <!--refresh page when submitted-->
+            <input type="hidden" id="showGroups2Request" name="showGroups2Request">
+            <input id="submit-button" type="submit" name="showGroups2" value="Display"></p>
         </form>
 
         <h3>Find the types of rides with capacity thats greater than the average capacity of all the ride types </h3>
@@ -217,7 +223,15 @@
             }
         }
 
-        function handleShowGroupsRequest() {
+        function handleShowShowsRequest() {
+            global $db_conn;
+
+            $result = executePlainSQL("SELECT * FROM Performs_Show_R1");
+
+           printResult($result);
+        }
+
+        function handleShowShowsRequest2() {
             global $db_conn;
 
             $result = executePlainSQL("SELECT * FROM Performs_Show_R2");
@@ -268,15 +282,19 @@
                 if (array_key_exists('countTuples', $_GET)) {
                     handleCountRequest();
                 } else if (array_key_exists('showGroups', $_GET)){
-                    handleShowGroupsRequest();
+                    handleShowShowsRequest();
                 } 
+                else if (array_key_exists('showGroups2', $_GET)){
+                    handleShowShowsRequest2();
+                } 
+
                 disconnectFromDB();
             }
         }
 
 		if (isset($_POST['reset']) || isset($_POST['updateSubmit']) || isset($_POST['insertSubmit']) || isset($_POST['getVisitorsOnAllRidesRequest']) ||  isset($_POST['minSeatsRequest'])) {
             handlePOSTRequest();
-        } else if (isset($_GET['countTupleRequest']) || isset($_GET['showGroupsRequest'])) {
+        } else if (isset($_GET['countTupleRequest']) || isset($_GET['showGroupsRequest'])||isset($_GET['showGroups2Request']) ) {
             handleGETRequest(); 
         }
 		?>
