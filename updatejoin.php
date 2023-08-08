@@ -20,7 +20,7 @@
         <input type="submit" value="Update" name="updateSubmit"></p>
 </form>
 
-        <h3>Show Performs Staff Table</h3>
+        <h3>Show Performs Staff Show</h3>
         <form method="GET" action="updatejoin.php"> <!--refresh page when submitted-->
             <input type="hidden" id="showGroupsRequest" name="showGroupsRequest">
             <input id="submit-button" type="submit" name="showGroups" value="Display"></p>
