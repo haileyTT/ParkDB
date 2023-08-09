@@ -1,16 +1,15 @@
 -- Selection
-SELECT * 
-FROM Groups;
-
--- Selection
-SELECT COUNT(*)
-FROM Groups
+-- args (c1, c2)
+SELECT RestaurantName
+FROM Restaurant
+WHERE Capacity > c1 AND Capacity < c2
 
 -- Aggregation with group by
 SELECT RestaurantName, MIN(Price)
 FROM Provides_AlcoholicDrink
 GROUP BY RestaurantName;
 
+-- Division
 -- Find visitors who have gone to all rides
 SELECT VisitorName
 FROM Visitor V

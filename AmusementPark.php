@@ -13,18 +13,20 @@
 
     <body>
         <div>
-        <h3>Count the number of performance groups in the park</h3>
+        <h3>Select restaurants with specific capacity range</h3>
         <form method="GET" action="AmusementPark.php"> <!--refresh page when submitted-->
-            <input type="hidden" id="countTupleRequest" name="countTupleRequest">
-            <input id="submit-button" type="submit" name="countTuples" value="Count"></p>
+            <input type="hidden" id="getRestaurantsRequest" name="getRestaurantsRequest">
+            <!-- <p> Capacity greater than: <input type="text" name="lowerBound"> and smaller than: <input type="text" name="upperBound"> </p> -->
+            <P> <input type="text" name="lowerBound"> < Capacity < <input type="text" name="upperBound"></p>
+            <input id="submit-button" type="submit" name="getRestaurants" value="Search"></p>
         </form>
 
         <hr />
 
-        <h3>Show all names of performance groups</h3>
+        <h3>Show restaurant table</h3>
         <form method="GET" action="AmusementPark.php"> <!--refresh page when submitted-->
-            <input type="hidden" id="showGroupsRequest" name="showGroupsRequest">
-            <input id="submit-button" type="submit" name="showGroups" value="Display"></p>
+            <input type="hidden" id="showRestaurantsRequest" name="showRestaurantsRequest">
+            <input id="submit-button" type="submit" name="showRestaurants" value="Display"></p>
         </form>
 
         <hr />
@@ -42,6 +44,7 @@
             <input type="hidden" id="getVisitorsOnAllRidesRequest" name="getVisitorsOnAllRidesRequest">
             <input id="submit-button" type="submit" name="getVisitorsOnAllRides" value="Search"></p>
         </form>
+
         </div>
         
 
@@ -157,32 +160,43 @@
             OCILogoff($db_conn);
         }
 
-        function handleCountRequest() {
+
+        function handleGetRestaurantsRequest() {
             global $db_conn;
 
-            $result = executePlainSQL("SELECT Count(*) FROM Groups");
+            $c1 = $_GET['lowerBound'];
+            $c2 = $_GET['upperBound'];
 
-            echo "<tr>Retrieved data from table:</tr>";
-            if (($row = oci_fetch_row($result)) != false) {
-                echo "<br> The number of tuples in Groups: " . $row[0] . "</br>";
-            }
-        }
-
-        function handleShowGroupsRequest() {
-            global $db_conn;
-
-            $result = executePlainSQL("SELECT * FROM Groups");
+            $result = executePlainSQL("SELECT RestaurantName FROM Restaurant WHERE Capacity>$c1 AND Capacity<$c2");
 
             echo "<tr>Retrieved data from table:</tr>";
             echo "<table>";
-            echo "<tr><th>Group name</th></tr>";
+            echo "<tr><th>Restaurant name</th></tr>";
 
             while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
-                echo "<tr><td>" . $row["GROUPNAME"] . "</td></tr>";
+                echo "<tr><td>" . $row["RESTAURANTNAME"] . "</td></tr>";
+            }
+            echo "</table>";
+
+        }
+
+
+        function handleShowRestaurantsRequest() {
+            global $db_conn;
+
+            $result = executePlainSQL("SELECT * FROM Restaurant");
+
+            echo "<tr>Retrieved data from table:</tr>";
+            echo "<table>";
+            echo "<tr><th>Restaurant Table</th><th>Capacity</th></tr>";
+
+            while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
+                echo "<tr><td>" . $row[0] . "</td><td>" . $row[1] . "</td></tr>";
             }
 
             echo "</table>";
         }
+        
 
         function handleGetCheapestDrinksResquest() {
             global $db_conn;
@@ -222,23 +236,6 @@
             echo "</table>";
         }
 
-        function handleInsertVisitorRequest() {
-            global $db_conn;
-
-            $tuple = array (
-                ":bind1" => $_POST['vTicketNm'],
-                ":bind2" => $_POST['visitorName']
-            );
-
-            $alltuples = array (
-                $tuple
-            );
-
-            executeBoundSQL("insert into Visitor values (:bind1, :bind2)", $alltuples);
-            OCICommit($db_conn);
-        }
-    
-
         // HANDLE ALL POST ROUTES
 	// A better coding practice is to have one method that reroutes your requests accordingly. It will make it easier to add/remove functionality.
         function handlePOSTRequest() {
@@ -259,10 +256,10 @@
 	// A better coding practice is to have one method that reroutes your requests accordingly. It will make it easier to add/remove functionality.
         function handleGETRequest() {
             if (connectToDB()) {
-                if (array_key_exists('countTuples', $_GET)) {
-                    handleCountRequest();
-                } else if (array_key_exists('showGroups', $_GET)){
-                    handleShowGroupsRequest();
+                if (array_key_exists('getRestaurants', $_GET)) {
+                    handleGetRestaurantsRequest();
+                } else if (array_key_exists('showRestaurants', $_GET)){
+                    handleShowRestaurantsRequest();
                 } else if (array_key_exists('getCheapestDrinks', $_GET)){
                     handleGetCheapestDrinksResquest();
                 } else if (array_key_exists('getVisitorsOnAllRides', $_GET)){
@@ -275,7 +272,7 @@
 
 		if (isset($_POST['reset']) || isset($_POST['updateSubmit']) || isset($_POST['insertVisitorSubmit'])) {
             handlePOSTRequest();
-        } else if (isset($_GET['countTupleRequest']) || isset($_GET['showGroupsRequest']) || isset($_GET['getCheapestDrinksRequest']) || isset($_GET['getVisitorsOnAllRidesRequest'])) {
+        } else if (isset($_GET['getRestaurantsRequest']) || isset($_GET['showRestaurantsRequest']) || isset($_GET['getCheapestDrinksRequest']) || isset($_GET['getVisitorsOnAllRidesRequest'])) {
             handleGETRequest(); 
         }
 		?>
