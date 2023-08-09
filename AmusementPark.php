@@ -50,7 +50,15 @@
 
         <hr />
 
-        <h3>Show restaurant table</h3>
+        <h3>Show Operates_Ride_R2 names and capacity</h3>
+        <form method="GET" action="AmusementPark.php"> <!--refresh page when submitted-->
+            <input type="hidden" id="showRidesRequest" name="showRidesRequest">
+            <input id="submit-button" type="submit" name="showRides" value="Display"></p>
+        </form>
+
+        <hr />
+
+        <h3>Show restaurant names and capacity</h3>
         <form method="GET" action="AmusementPark.php"> <!--refresh page when submitted-->
             <input type="hidden" id="showRestaurantsRequest" name="showRestaurantsRequest">
             <input id="submit-button" type="submit" name="showRestaurants" value="Display"></p>
@@ -279,6 +287,22 @@
             echo "</table>";
         }
 
+        function handleShowRidesRequest() {
+            global $db_conn;
+
+            $result = executePlainSQL("SELECT * FROM Operates_Ride_R2");
+
+            echo "<tr>Retrieved data from table:</tr>";
+            echo "<table>";
+            echo "<tr><th>Operates_Ride_R2 Table</th><th>Capacity</th></tr>";
+
+            while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
+                echo "<tr><td>" . $row[0] . "</td><td>" . $row[1] . "</td></tr>";
+            }
+
+            echo "</table>";
+        }
+
         // HANDLE ALL POST ROUTES
 	// A better coding practice is to have one method that reroutes your requests accordingly. It will make it easier to add/remove functionality.
         function handlePOSTRequest() {
@@ -307,6 +331,8 @@
                     handleGetCheapestDrinksResquest();
                 } else if (array_key_exists('getVisitorsOnAllRides', $_GET)){
                     handleGetVisitorsOnAllRides();
+                } else if (array_key_exists('showRides', $_GET)){
+                    handleShowRidesRequest();
                 }
 
                 disconnectFromDB();
@@ -315,7 +341,7 @@
 
 		if (isset($_POST['reset']) || isset($_POST['updateSubmit']) || isset($_POST['insertVisitorSubmit'])) {
             handlePOSTRequest();
-        } else if (isset($_GET['getRestaurantsRequest']) || isset($_GET['showRestaurantsRequest']) || isset($_GET['getCheapestDrinksRequest']) || isset($_GET['getVisitorsOnAllRidesRequest'])) {
+        } else if (isset($_GET['showRidesRequest']) || isset($_GET['getRestaurantsRequest']) || isset($_GET['showRestaurantsRequest']) || isset($_GET['getCheapestDrinksRequest']) || isset($_GET['getVisitorsOnAllRidesRequest'])) {
             handleGETRequest(); 
         }
 		?>
