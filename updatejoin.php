@@ -188,7 +188,7 @@
             $newGenre = $_POST['newGenre'];
             
             // you need the wrap the old name and new name values with single quotations
-            executePlainSQL("UPDATE Performs_Show_R2 SET Seats =" . $newN . " WHERE Seats=" . $oldN . "");
+            executePlainSQL("UPDATE Performs_Show_R2 SET Seats ='" . $newN . "' WHERE Seats='" . $oldN . "'");
             executePlainSQL("UPDATE Performs_Show_R1 SET Genre ='" . $newGenre . "'WHERE Genre='" . $oldGenre . "'");
         
             
