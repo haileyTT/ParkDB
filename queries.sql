@@ -1,8 +1,8 @@
 -- Selection
--- args (c1, c2)
-SELECT RestaurantName
-FROM Restaurant
-WHERE Capacity > c1 AND Capacity < c2
+-- args (c1, c2, c3)
+SELECT c1
+FROM c2
+WHERE Capacity > c3
 
 -- Aggregation with group by
 SELECT RestaurantName, MIN(Price)
