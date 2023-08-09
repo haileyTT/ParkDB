@@ -42,16 +42,6 @@
             <input type="hidden" id="getVisitorsOnAllRidesRequest" name="getVisitorsOnAllRidesRequest">
             <input id="submit-button" type="submit" name="getVisitorsOnAllRides" value="Search"></p>
         </form>
-
-        <hr />
-
-        <h3>Insert Values into Visitor table</h3>
-        <form method="POST" action="AmusementPark.php"> <!--refresh page when submitted-->
-            <input type="hidden" id="insertVisitorQueryRequest" name="insertVisitorQueryRequest">
-            <p>Ticket number: <input type="text" name="vTicketNm"></p> 
-            <p>Visitor name: <input type="text" name="visitorName"></p>
-            <input id="submit-button" type="submit" value="Insert visitor" name="insertVisitorSubmit"></p>
-        </form>
         </div>
         
 

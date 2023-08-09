@@ -16,9 +16,10 @@
   extension.  You must also change the username and password on the
   OCILogon below to be your ORACLE username and password -->
 
-<html>
+  <html>
     <head>
         <title>CPSC 304 PHP/Oracle Demonstration</title>
+        <link rel="stylesheet" href="hailey's styling.css">
     </head>
 	
     <div class="topnav">
@@ -30,46 +31,46 @@
 	
     <body>
 
-        <h2>Projection of Attributes of the Performs_Show_R2 Table</h2>
+        <h3>Projection of Attributes of the Performs_Show_R2 Table</h3>
         <form method="POST" action="project_having.php"> <!--refresh page when submitted-->
             <input type="hidden" id="insertQueryRequest" name="projectQueryRequest">
 
-            Start Time: <input type="radio" checked="checked" name="starttime" value="YES" required> Yes
-                       <input type="radio" name="starttime" value="NO"> No<br><br/>
-			Title: <input type="radio" checked="checked" name="title" value="YES" required> Yes
-                       <input type="radio" name="title" value="NO" > No<br><br/>
-            Seats: <input type="radio" checked="checked" name="seats" value="YES" required> Yes
-                       <input type="radio" name="seats" value="NO"> No<br><br/>
-			Groupname: <input type="radio" checked="checked" name="groupname" value="YES" required> Yes
-                       <input type="radio" name="groupname" value="NO"> No<br><br/>					   
-            <input type="submit" value="Project" name="projectSubmit"></p>
+            <p> Start Time: <input type="radio" checked="checked" name="starttime" value="YES" required> Yes
+                       <input type="radio" name="starttime" value="NO"> No </p>
+			<p> Title: <input type="radio" checked="checked" name="title" value="YES" required> Yes
+                       <input type="radio" name="title" value="NO" > No</p>
+            <p>Seats: <input type="radio" checked="checked" name="seats" value="YES" required> Yes
+                       <input type="radio" name="seats" value="NO"> No</p>
+			<p>Groupname: <input type="radio" checked="checked" name="groupname" value="YES" required> Yes
+                       <input type="radio" name="groupname" value="NO"> No</p>				   
+            <input id="submit-button" type="submit" value="Project" name="projectSubmit"></p>
 			
 
 			
         </form>
         <hr />
 
-        <h2>Aggregation with Having (GROUP BY GENRE)</h2>
+        <h3>Aggregation with Having (GROUP BY GENRE)</h3>
         <p>Please select number of showtimes per day</p>
 
         <form method="POST" action="project_having.php"> <!--refresh page when submitted-->
             <input type="hidden" id="havingQueryRequest" name="havingQueryRequest">
-			At least: <input type="radio" checked="checked" name="having" value="1" required> 1
+			<p>At least: <input type="radio" checked="checked" name="having" value="1" required> 1
                    <input type="radio" name="having" value="2"> 2
 				   <input type="radio" name="having" value="3"> 3
 				   <input type="radio" name="having" value="4"> 4
 				   <input type="radio" name="having" value="5"> 5
-				   <br><br/>
+            </p>
 
-            <input type="submit" value="Having" name="havingSubmit"></p>
+            <input id="submit-button" type="submit" value="Having" name="havingSubmit"></p>
         </form>
 
         <hr />
 
-        <h2>Show Schedule</h2>
+        <h3>Show Schedule</h3>
         <form method="GET" action="project_having.php"> <!--refresh page when submitted-->
             <input type="hidden" id="displayTupleRequest" name="displayTupleRequest">
-            <input type="submit" value="Display" name="displayTuples"></p>
+            <input id="submit-button" type="submit" value="Display" name="displayTuples"></p>
         </form>
 
         <?php

@@ -1,30 +1,12 @@
--- Groups
+-- Selection
 SELECT * 
 FROM Groups;
 
+-- Selection
 SELECT COUNT(*)
 FROM Groups
 
--- PartOfActor
--- arg (groupNm)
-SELECT StageName
-FROM PartOfActor
-WHERE GroupName = groupNm;
-
--- Visitor
--- arg (ticketNum)
-SELECT VisitorName 
-FROM Visitor
-WHERE TicketNumber = ticketNum;
-
--- Staff
--- arg (ID)
-SELECT StaffName
-FROM Staff
-WHERE StaffID = ID
-
 -- Aggregation with group by
--- TODO: change the type of price from integer to char
 SELECT RestaurantName, MIN(Price)
 FROM Provides_AlcoholicDrink
 GROUP BY RestaurantName;

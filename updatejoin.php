@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Amusement Park Planning</title>
+        <link rel="stylesheet" href="hailey's styling.css">
     </head>
     <div class="topnav">
     <a href="AmusementPark.php">Amusement Park</a>
@@ -13,11 +14,11 @@
         <h3>Update Attribute of Performs Show</h3>
         <form method="POST" action="updatejoin.php"> <!--refresh page when submitted-->
         <input type="hidden" id="updateQueryRequest" name="updateQueryRequest">
-        Number of Old Seats: <input type="text" name="oldName"> <br /><br />
-        Number of New Seats : <input type="text" name="newName"> <br /><br />
-        Old Genre: <input type="text" name="oldGenre"> <br /><br />
-        New Genre: <input type="text" name="newGenre"> <br /><br />
-        <input type="submit" value="Update" name="updateSubmit"></p>
+        <p>Number of Old Seats: <input type="text" name="oldName"> </p>
+        <p>Number of New Seats : <input type="text" name="newName"> </p>
+        <p>Old Genre: <input type="text" name="oldGenre"> </p>
+        <p>New Genre: <input type="text" name="newGenre"> </p>
+        <input id="submit-button" type="submit" value="Update" name="updateSubmit">
 </form>
 
         <h3>Show Performs_Show_R1 Table</h3>
@@ -42,8 +43,8 @@
         <h3>Find the visitors who have been on the inputted ride</h3>
         <form method="POST" action="updatejoin.php"> <!--refresh page when submitted-->
             <input type="hidden" id="getVisitorsOnAllRidesRequest" name="getVisitorsOnAllRidesRequest">
-             RideName: <input type="text" name="rideName"> <br /><br />
-            <input id="submit-button" type="submit" name="getVisitorsOnAllRides" value="Search"></p>
+             <P>RideName: <input type="text" name="rideName"> </p>
+            <input id="submit-button" type="submit" name="getVisitorsOnAllRides" value="Search">
         </form>
         
 
