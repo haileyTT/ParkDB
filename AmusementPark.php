@@ -13,11 +13,38 @@
 
     <body>
         <div>
-        <h3>Select restaurants with specific capacity range</h3>
+        <!-- <h3>Select restaurants with specific capacity range</h3>
+        <form method="GET" action="AmusementPark.php"> 
+            <input type="hidden" id="getRestaurantsRequest" name="getRestaurantsRequest">
+        <p> Capacity greater than: <input type="text" name="lowerBound"> and smaller than: <input type="text" name="upperBound"> </p> 
+            <P> <input type="text" name="lowerBound"> < Capacity < <input type="text" name="upperBound"></p>
+            <input id="submit-button" type="submit" name="getRestaurants" value="Search"></p>
+        </form> -->
+
+        <h3>Selection</h3>
         <form method="GET" action="AmusementPark.php"> <!--refresh page when submitted-->
             <input type="hidden" id="getRestaurantsRequest" name="getRestaurantsRequest">
             <!-- <p> Capacity greater than: <input type="text" name="lowerBound"> and smaller than: <input type="text" name="upperBound"> </p> -->
-            <P> <input type="text" name="lowerBound"> < Capacity < <input type="text" name="upperBound"></p>
+            <!-- <P> <input type="text" name="lowerBound"> < Capacity < <input type="text" name="upperBound"></p> -->
+            <p> 
+            Select  
+            <select name="attributeName" id="attributeName">
+            <option value="RestaurantName">Restaurant name</option>
+            <option value="RideName">Ride name</option>
+            </select>
+
+            From 
+            <select name="tableName" id="tableName">
+            <option value="Restaurant">Restaurant</option>
+            <option value="Operates_Ride_R2">Ride</option>
+            </select>
+            </p>
+
+            <p>
+            Where
+            Capacity > <input type="text" name="conditionName">
+            </p>
+
             <input id="submit-button" type="submit" name="getRestaurants" value="Search"></p>
         </form>
 
@@ -162,19 +189,35 @@
 
 
         function handleGetRestaurantsRequest() {
+            // global $db_conn;
+
+            // $c1 = $_GET['lowerBound'];
+            // $c2 = $_GET['upperBound'];
+
+            // $result = executePlainSQL("SELECT RestaurantName FROM Restaurant WHERE Capacity>$c1 AND Capacity<$c2");
+
+            // echo "<tr>Retrieved data from table:</tr>";
+            // echo "<table>";
+            // echo "<tr><th>Restaurant name</th></tr>";
+
+            // while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
+            //     echo "<tr><td>" . $row["RESTAURANTNAME"] . "</td></tr>";
+            // }
+            // echo "</table>";
             global $db_conn;
 
-            $c1 = $_GET['lowerBound'];
-            $c2 = $_GET['upperBound'];
+            $c1 = $_GET['attributeName'];
+            $c2 = $_GET['tableName'];
+            $c3 = $_GET['conditionName'];
 
-            $result = executePlainSQL("SELECT RestaurantName FROM Restaurant WHERE Capacity>$c1 AND Capacity<$c2");
+            $result = executePlainSQL("SELECT $c1 FROM $c2 WHERE Capacity>$c3");
 
             echo "<tr>Retrieved data from table:</tr>";
             echo "<table>";
-            echo "<tr><th>Restaurant name</th></tr>";
+            // echo "<tr><th>Restaurant name</th></tr>";
 
             while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
-                echo "<tr><td>" . $row["RESTAURANTNAME"] . "</td></tr>";
+                echo "<tr><td>" . $row[0] . "</td></tr>";
             }
             echo "</table>";
 
